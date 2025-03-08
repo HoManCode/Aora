@@ -24,7 +24,7 @@ const SignIn = () => {
     <GestureHandlerRootView>
       <SafeAreaView className='bg-primary h-full'>
         <ScrollView>
-          <View className='w-full justify-center px-4 my-6'>
+          <View className='w-full justify-center min-h-[50vh] px-4 my-6'>
           <Image source={images.logo}
           resizeMode='contain'
           className='w-[115px] h-[35px]'
@@ -34,7 +34,7 @@ const SignIn = () => {
             title="Email"
             vaule={form.email}
             handleChangeText={(e:string) => setForm({...form,email:e})}
-            otherStyles="mt-"
+            otherStyles="mt-7"
             keyboardType="email-address"
           />
           <FormField 
@@ -58,7 +58,7 @@ const SignIn = () => {
               href="/sign-up"
               className="text-lg font-psemibold text-secondary"
             >
-              Signup
+              Sign up
             </Link>
             </View>
         </ScrollView>
