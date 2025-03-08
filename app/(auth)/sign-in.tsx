@@ -1,22 +1,30 @@
-import { Image, Text, View } from 'react-native'
+import { Image, Text, View} from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { ScrollView } from 'react-native-gesture-handler'
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-
+import { Link } from 'expo-router';
 import { images } from '../../constants';
 import FormField from '../../components/FormField';
+import CustomButton from '../../components/CustomButton';
 
 const SignIn = () => {
   const [form, setForm] = useState({
     email:'',
     password:''
   })
+
+  const[isSubmitting, setIsSubmitting] = useState(false)
+
+  const submit = () => {
+
+  }
+
   return (
     <GestureHandlerRootView>
       <SafeAreaView className='bg-primary h-full'>
         <ScrollView>
-          <View className='w-full justify-center h-full px-4 my-6'>
+          <View className='w-full justify-center px-4 my-6'>
           <Image source={images.logo}
           resizeMode='contain'
           className='w-[115px] h-[35px]'
@@ -26,7 +34,7 @@ const SignIn = () => {
             title="Email"
             vaule={form.email}
             handleChangeText={(e:string) => setForm({...form,email:e})}
-            otherStyles="mt-7"
+            otherStyles="mt-"
             keyboardType="email-address"
           />
           <FormField 
@@ -36,6 +44,23 @@ const SignIn = () => {
             otherStyles="mt-7"
           />
           </View>
+          <CustomButton 
+            title="Sign In"
+            handlePress={submit}
+            isLoading={isSubmitting}
+            containerStyles="mt-7"
+          />
+          <View className="flex justify-center pt-5 flex-row gap-2">
+            <Text className="text-lg text-gray-100 font-pregular">
+              Don't have an account?
+            </Text>
+            <Link
+              href="/sign-up"
+              className="text-lg font-psemibold text-secondary"
+            >
+              Signup
+            </Link>
+            </View>
         </ScrollView>
       </SafeAreaView>
     </GestureHandlerRootView>
