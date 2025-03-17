@@ -6,8 +6,13 @@ import { ScrollView } from "react-native-gesture-handler";
 import { images } from '../constants';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import CustomButton from "../components/CustomButton";
+import { useGlobalContext } from "../context/GlobalProvider";
 
 export default function App() {
+
+  const { loading, isLogged } = useGlobalContext();
+
+  if (!loading && isLogged) return <Redirect href="/home" />
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaView className="bg-primary h-full">
