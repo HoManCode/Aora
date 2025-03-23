@@ -4,6 +4,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { images } from '../../constants';
 import SearchInput from "../../components/SearchInput";
+import Trending from "../../components/Trending";
+import EmptyState from "../../components/EmptyState";
 
 interface DataItem {
   $id: string; // Ensure it's a string, as keyExtractor requires a string key
@@ -15,9 +17,9 @@ const data: DataItem[] = [{ $id: "1", id: 1 }];
 const Home = () => {
   return (
     <GestureHandlerRootView>
-      <SafeAreaView className='bg-primary'>
+      <SafeAreaView className='bg-primary h-full'>
         <FlatList
-          data={data}
+          data={[]}
           keyExtractor={(item) => item.$id} 
           renderItem={({ item }) => (
               <Text className="text-3xl text-white">{item.id}</Text>
@@ -46,8 +48,15 @@ const Home = () => {
               <Text className="text-lg font-pregular text-gray-100 mb-3">
                 Latest Videos
               </Text>
+              <Trending posts={[{id:1},{id:2},{id:3}] ?? []}/>
             </View>
             </View>
+          )}
+          ListEmptyComponent={() => (
+            <EmptyState
+              title="No Videos Found"
+              subtitle="Be the first one to upload a video"
+            />
           )}
         />
       </SafeAreaView>
