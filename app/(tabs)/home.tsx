@@ -5,7 +5,9 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { images } from '../../constants';
 import SearchInput from "../../components/SearchInput";
 import Trending from "../../components/Trending";
+import { getAllPosts, getLatestPosts } from "../../lib/appwrite";
 import EmptyState from "../../components/EmptyState";
+import useAppwrite from "../../lib/useAppwrite";
 
 interface DataItem {
   $id: string; // Ensure it's a string, as keyExtractor requires a string key
@@ -15,6 +17,8 @@ interface DataItem {
 const data: DataItem[] = [{ $id: "1", id: 1 }];
 
 const Home = () => {
+  const { data: posts, refetch } = useAppwrite(getAllPosts);
+  const { data: latestPosts } = useAppwrite(getLatestPosts);
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = async () => {
     setRefreshing(true);
@@ -72,3 +76,4 @@ const Home = () => {
 };
 
 export default Home;
+
