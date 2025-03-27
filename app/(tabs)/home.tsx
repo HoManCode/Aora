@@ -1,5 +1,5 @@
-import { View, Text, FlatList, Image } from "react-native";
-import React from "react";
+import { View, Text, FlatList, Image, RefreshControl } from "react-native";
+import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { images } from '../../constants';
@@ -15,11 +15,17 @@ interface DataItem {
 const data: DataItem[] = [{ $id: "1", id: 1 }];
 
 const Home = () => {
+  const [refreshing, setRefreshing] = useState(false);
+  const onRefresh = async () => {
+    setRefreshing(true);
+    //recall videos -> if any new videos appeard
+    setRefreshing(false);
+  };
   return (
     <GestureHandlerRootView>
       <SafeAreaView className='bg-primary h-full'>
         <FlatList
-          data={[]}
+          data={[{id:1}, {id:2},{id:3}]}
           keyExtractor={(item) => item.$id} 
           renderItem={({ item }) => (
               <Text className="text-3xl text-white">{item.id}</Text>
@@ -58,6 +64,7 @@ const Home = () => {
               subtitle="Be the first one to upload a video"
             />
           )}
+          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>}
         />
       </SafeAreaView>
     </GestureHandlerRootView>
